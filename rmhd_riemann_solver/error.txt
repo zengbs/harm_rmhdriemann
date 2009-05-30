@@ -1,0 +1,27 @@
+ifort  -c postshock.f90
+fortcom: Error: postshock.f90, line 777: Character length argument mismatch.   [SWITCHPB]
+  call zeroeqn(vxb,unk1,unk2,xmax,ahead,f,df,switchLR,switchPB,errcheck)
+------------------------------------------------------^
+fortcom: Error: postshock.f90, line 785: Character length argument mismatch.   [SWITCHPB]
+  call zeroeqn(vxb,unk1,unk2,xmin,ahead,f,df,switchLR,switchPB,errcheck)
+------------------------------------------------------^
+fortcom: Error: postshock.f90, line 837: Character length argument mismatch.   [SWITCHPB]
+        call zeroeqn(vxb,unk1,unk2,Vs,ahead,f,df,switchLR,switchPB,errcheck)
+----------------------------------------------------------^
+fortcom: Error: postshock.f90, line 875: Character length argument mismatch.   [SWITCHPB]
+  call zeroeqn(vxb,unk1,unk2,Vs,ahead,f2,df,switchLR,switchPB,errcheck)
+-----------------------------------------------------^
+fortcom: Error: postshock.f90, line 911: Character length argument mismatch.   [SWITCHPB]
+     call zeroeqn(vxb,unk1,unk2,Vs,ahead,f1,df,switchLR,switchPB,errcheck)
+--------------------------------------------------------^
+fortcom: Error: postshock.f90, line 924: Character length argument mismatch.   [SWITCHPB]
+        call zeroeqn(vxb,unk1,unk2,Vs,ahead,f1,df,switchLR,switchPB,errcheck)
+-----------------------------------------------------------^
+fortcom: Error: postshock.f90, line 996: Character length argument mismatch.   [SWITCHPB]
+  call zeroeqn(vxb,unk1,unk2,Vs,ahead,f,df,switchLR,switchPB,errcheck)
+----------------------------------------------------^
+fortcom: Error: postshock.f90, line 1023: Character length argument mismatch.   [SWITCHPB]
+113  call zeroeqn(vxb,unk1,unk2,Vs,ahead,f,df,switchLR,switchPB,errcheck)
+-------------------------------------------------------^
+compilation aborted for postshock.f90 (code 1)
+make: *** [postshock.o] Error 1
