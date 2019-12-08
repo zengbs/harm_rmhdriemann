@@ -14,6 +14,7 @@ subroutine initialdata(init,left,right)
   real(DP),dimension(16)::value
   character(len=22)::dump
   integer(I4B)::i
+  double precision:: LorentzFactor
 
   select case(init)
   case (0) !User defined
@@ -35,20 +36,22 @@ subroutine initialdata(init,left,right)
      gamma=value(2)
 
      !Left state
+     LorentzFactor = ( 1.0 + value(5)**2 + value(6)**2 + value(7)**2 )**0.5
      left(1)=value(3) !rho
      left(2)=value(4) !gas pressure
-     left(3)=value(5) !vx
-     left(4)=value(6) !vy
-     left(5)=value(7) !vz
+     left(3)=value(5)/LorentzFactor !vx
+     left(4)=value(6)/LorentzFactor !vy
+     left(5)=value(7)/LorentzFactor !vz
      left(6)=value(8) !By
      left(7)=value(9) !Bz
 
      !Right state
+     LorentzFactor = ( 1.0 + value(12)**2 + value(13)**2 + value(14)**2 )**0.5
      right(1)=value(10)  !rho
      right(2)=value(11)  !gas pressure
-     right(3)=value(12)  !vx
-     right(4)=value(13)  !vy
-     right(5)=value(14)  !vz
+     right(3)=value(12)/LorentzFactor  !vx
+     right(4)=value(13)/LorentzFactor  !vy
+     right(5)=value(14)/LorentzFactor  !vz
      right(6)=value(15)  !By
      right(7)=value(16)  !Bz
 

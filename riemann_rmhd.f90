@@ -1259,26 +1259,26 @@ subroutine output(x1,x2,t,nx,left,right,VsLv3,VsRv3,unk,fullsolution)
 
      i=1
      do while(x(i)-xc<=VsLeft*t)
-        write(100,FMT='(8E20.9)') x(i),left
+        write(100,FMT='(8E26.16)') x(i),left
         i=i+1
         xp=x(i)
         if (i>nx) then
            return
         end if
      end do
-     write(100,FMT='(8E20.9)') xc+VsLeft*t,left !EXACT POSITION OF THE SHOCK
+     write(100,FMT='(8E26.16)') xc+VsLeft*t,left !EXACT POSITION OF THE SHOCK
 
      if (pbc>left(2)) then !Shock
-        write(100,FMT='(8E20.9)') xc+VsLeft*t,solution(:,1) !EXACT POSITION OF THE SHOCK
+        write(100,FMT='(8E26.16)') xc+VsLeft*t,solution(:,1) !EXACT POSITION OF THE SHOCK
         do while(x(i)-xc<=vxc*t)
-           write(100,FMT='(8E20.9)') x(i),solution(:,1)
+           write(100,FMT='(8E26.16)') x(i),solution(:,1)
            i=i+1
            xp=x(i)
            if (i>nx) then
               return
            end if
         end do
-        write(100,FMT='(8E20.9)') xc+vxc*t,solution(:,1) !EXACT POSITION OF THE SHOCK
+        write(100,FMT='(8E26.16)') xc+vxc*t,solution(:,1) !EXACT POSITION OF THE SHOCK
      else !Rarefaction
         pb=left(2)
         h=(pbc-left(2))/nxr
@@ -1288,7 +1288,7 @@ subroutine output(x1,x2,t,nx,left,right,VsLv3,VsRv3,unk,fullsolution)
            call Rarefaction_pressure(pb,xir,left,solutionr,'LF')
            !Rarefaction returns always the value of xi at left(2)
            call xi(solutionr,'LF',xir)!Computes the value of xi at pb
-           write(100,FMT='(8E20.9)') xc+xir*t,solutionr
+           write(100,FMT='(8E26.16)') xc+xir*t,solutionr
            xp=xc+xir*t
            pb=pb+h
            if (xp>x2) return
@@ -1299,33 +1299,33 @@ subroutine output(x1,x2,t,nx,left,right,VsLv3,VsRv3,unk,fullsolution)
         end do
         i=i+1
         do while(x(i)-xc<=vxc*t)
-           write(100,FMT='(8E20.9)') x(i),solutionr
+           write(100,FMT='(8E26.16)') x(i),solutionr
            i=i+1
            xp=x(i)
            if (i>nx) then
               return
            end if
         end do
-        write(100,FMT='(8E20.9)') xc+vxc*t,solution(:,1) !EXACT POSITION OF THE SHOCK
+        write(100,FMT='(8E26.16)') xc+vxc*t,solution(:,1) !EXACT POSITION OF THE SHOCK
      end if
 
      if (pbc>right(2)) then !Shock
-        write(100,FMT='(8E20.9)') xc+vxc*t,solution(:,2) !EXACT POSITION OF THE SHOCK
+        write(100,FMT='(8E26.16)') xc+vxc*t,solution(:,2) !EXACT POSITION OF THE SHOCK
         do while(x(i)-xc<=VsRight*t)
-           write(100,FMT='(8E20.9)') x(i),solution(:,2)
+           write(100,FMT='(8E26.16)') x(i),solution(:,2)
            xp=x(i)
            i=i+1
            if (i>nx) then
               return
            end if
         end do
-        write(100,FMT='(8E20.9)') xc+VsRight*t,solution(:,2) !EXACT POSITION OF THE SHOCK
-        write(100,FMT='(8E20.9)') xc+VsRight*t,right !EXACT POSITION OF THE SHOCK
+        write(100,FMT='(8E26.16)') xc+VsRight*t,solution(:,2) !EXACT POSITION OF THE SHOCK
+        write(100,FMT='(8E26.16)') xc+VsRight*t,right !EXACT POSITION OF THE SHOCK
      else !Rarefaction
-        write(100,FMT='(8E20.9)') xc+vxc*t,solution(:,2) !EXACT POSITION OF THE SHOCK
+        write(100,FMT='(8E26.16)') xc+vxc*t,solution(:,2) !EXACT POSITION OF THE SHOCK
         call xi(solution(:,2),'RF',xir)!compute the value of xi at pb
         do while(x(i)<xc+xir*t)
-           write(100,FMT='(8E20.9)') x(i),solution(:,2)
+           write(100,FMT='(8E26.16)') x(i),solution(:,2)
            xp=x(i)
            i=i+1
            if (i>nx) then
@@ -1341,7 +1341,7 @@ subroutine output(x1,x2,t,nx,left,right,VsLv3,VsRv3,unk,fullsolution)
            call Rarefaction_pressure(pb,xir,solution(:,2),solutionr,'RF')
            !Rarefaction returns always the value of xi at right(2)
            call xi(solutionr,'RF',xir)!compute the value of xi at pb
-           write(100,FMT='(8E20.9)') xc+xir*t,solutionr
+           write(100,FMT='(8E26.16)') xc+xir*t,solutionr
            pb=pb+h
            xp=xc+xir*t
            if (xp>x2) return
@@ -1350,7 +1350,7 @@ subroutine output(x1,x2,t,nx,left,right,VsLv3,VsRv3,unk,fullsolution)
      end if
 
      do 
-        if (x(i)>=xc+VsRight*t) write(100,FMT='(8E20.9)') x(i),right
+        if (x(i)>=xc+VsRight*t) write(100,FMT='(8E26.16)') x(i),right
         i=i+1
         if (i>nx) then
            return
@@ -1364,7 +1364,7 @@ subroutine output(x1,x2,t,nx,left,right,VsLv3,VsRv3,unk,fullsolution)
 
      i=1
      do while(x(i)-xc<VsLv3(1)*t)
-        write(100,FMT='(8E20.9)') x(i),left
+        write(100,FMT='(8E26.16)') x(i),left
         i=i+1
         xp=x(i)
         if (i>nx) then
@@ -1372,7 +1372,7 @@ subroutine output(x1,x2,t,nx,left,right,VsLv3,VsRv3,unk,fullsolution)
         end if
      end do
      if ((xc+VsLv3(1)*t)>x1) then
-        write(100,FMT='(8E20.9)') xc+VsLv3(1)*t,left !EXACT POSITION OF THE SHOCK
+        write(100,FMT='(8E26.16)') xc+VsLv3(1)*t,left !EXACT POSITION OF THE SHOCK
      end if
 
 
@@ -1384,18 +1384,18 @@ subroutine output(x1,x2,t,nx,left,right,VsLv3,VsRv3,unk,fullsolution)
 
      if (fullsolution(2,1)>=left(2)) then !Shock
         if ((xc+VsLv3(1)*t)>x1) then
-           write(100,FMT='(8E20.9)') xc+VsLv3(1)*t,fullsolution(:,1) !EXACT POSITION OF THE SHOCK
+           write(100,FMT='(8E26.16)') xc+VsLv3(1)*t,fullsolution(:,1) !EXACT POSITION OF THE SHOCK
         end if
 
         do while(x(i)-xc<=VsLv3(2)*t)
-           write(100,FMT='(8E20.9)') x(i),fullsolution(:,1)
+           write(100,FMT='(8E26.16)') x(i),fullsolution(:,1)
            i=i+1
            xp=x(i)
            if (i>nx) then
               return
            end if
         end do
-        write(100,FMT='(8E20.9)') xc+VsLv3(2)*t,fullsolution(:,1) !EXACT POSITION OF THE SHOCK
+        write(100,FMT='(8E26.16)') xc+VsLv3(2)*t,fullsolution(:,1) !EXACT POSITION OF THE SHOCK
      else !Rarefaction
         pb=left(2)
         h=(unk(1)-pb)/nxr
@@ -1405,7 +1405,7 @@ subroutine output(x1,x2,t,nx,left,right,VsLv3,VsRv3,unk,fullsolution)
            call Rarefaction_pressure(pb,xir,left,solutionr,'LF')
            !Rarefaction returns always the value of xi at left(2)
            call xi(solutionr,'LF',xir)!Computes the value of xi at pb
-           write(100,FMT='(8E20.9)') xc+xir*t,solutionr
+           write(100,FMT='(8E26.16)') xc+xir*t,solutionr
            xp=xc+xir*t
            pb=pb+h
            if (xp>x2) return
@@ -1416,12 +1416,12 @@ subroutine output(x1,x2,t,nx,left,right,VsLv3,VsRv3,unk,fullsolution)
         end do
         i=i+1
         do while(x(i)-xc<=VsLv3(2)*t)
-           write(100,FMT='(8E20.9)') x(i),solutionr
+           write(100,FMT='(8E26.16)') x(i),solutionr
            i=i+1
            xp=x(i)
            if (i>nx) return
         end do
-        write(100,FMT='(8E20.9)') xc+VsLv3(2)*t,solutionr !EXACT POSITION OF THE SHOCK
+        write(100,FMT='(8E26.16)') xc+VsLv3(2)*t,solutionr !EXACT POSITION OF THE SHOCK
      end if
 
 
@@ -1433,14 +1433,14 @@ subroutine output(x1,x2,t,nx,left,right,VsLv3,VsRv3,unk,fullsolution)
 
      print *,'PLOTTING... Left Going Alfven Wave'
 
-     write(100,FMT='(8E20.9)') xc+VsLv3(2)*t,fullsolution(:,2) !EXACT POSITION OF THE SHOCK
+     write(100,FMT='(8E26.16)') xc+VsLv3(2)*t,fullsolution(:,2) !EXACT POSITION OF THE SHOCK
      do while(x(i)-xc<=VsLv3(3)*t)
-        write(100,FMT='(8E20.9)') x(i),fullsolution(:,2)
+        write(100,FMT='(8E26.16)') x(i),fullsolution(:,2)
         i=i+1
         xp=x(i)
         if (i>nx) return
      end do
-     write(100,FMT='(8E20.9)') xc+VsLv3(3)*t,fullsolution(:,2) !EXACT POSITION OF THE SHOCK
+     write(100,FMT='(8E26.16)') xc+VsLv3(3)*t,fullsolution(:,2) !EXACT POSITION OF THE SHOCK
 
 
      !---------------------------------!
@@ -1450,14 +1450,14 @@ subroutine output(x1,x2,t,nx,left,right,VsLv3,VsRv3,unk,fullsolution)
      print *,'PLOTTING... Left Going Slow Wave'
 
      if (fullsolution(2,3)>=fullsolution(2,2)) then !Shock
-        write(100,FMT='(8E20.9)') xc+VsLv3(3)*t,fullsolution(:,3) !EXACT POSITION OF THE SHOCK
+        write(100,FMT='(8E26.16)') xc+VsLv3(3)*t,fullsolution(:,3) !EXACT POSITION OF THE SHOCK
         do while(x(i)-xc<=vxc*t)
-           write(100,FMT='(8E20.9)') x(i),fullsolution(:,3)
+           write(100,FMT='(8E26.16)') x(i),fullsolution(:,3)
            i=i+1
            xp=x(i)
            if (i>nx) return
         end do
-        write(100,FMT='(8E20.9)') xc+vxc*t,fullsolution(:,3) !EXACT POSITION OF THE SHOCK
+        write(100,FMT='(8E26.16)') xc+vxc*t,fullsolution(:,3) !EXACT POSITION OF THE SHOCK
      else !Rarefaction
         normb=sqrt(fullsolution(6,2)**2+fullsolution(7,2)**2)
         h=(sqrt(unk(2)**2+unk(3)**2)-normb)/nxr
@@ -1467,7 +1467,7 @@ subroutine output(x1,x2,t,nx,left,right,VsLv3,VsRv3,unk,fullsolution)
            call Rarefaction(normb,xir,fullsolution(:,2),solutionr,'LS')
            !Rarefaction returns always the value of xi at left(2)
            call xi(solutionr,'LS',xir)!Computes the value of xi at pb
-           write(100,FMT='(8E20.9)') xc+xir*t,solutionr
+           write(100,FMT='(8E26.16)') xc+xir*t,solutionr
            xp=xc+xir*t
            normb=normb+h
            if (xp>x2) return
@@ -1478,12 +1478,12 @@ subroutine output(x1,x2,t,nx,left,right,VsLv3,VsRv3,unk,fullsolution)
         end do
         i=i+1
         do while(x(i)-xc<=vxc*t)
-           write(100,FMT='(8E20.9)') x(i),fullsolution(:,3)
+           write(100,FMT='(8E26.16)') x(i),fullsolution(:,3)
            i=i+1
            xp=x(i)
            if (i>nx) return
         end do
-        write(100,FMT='(8E20.9)') xc+vxc*t,fullsolution(:,3) !EXACT POSITION OF THE SHOCK
+        write(100,FMT='(8E26.16)') xc+vxc*t,fullsolution(:,3) !EXACT POSITION OF THE SHOCK
      end if
 
 
@@ -1494,18 +1494,18 @@ subroutine output(x1,x2,t,nx,left,right,VsLv3,VsRv3,unk,fullsolution)
      print *,'PLOTTING... Right Going Slow Wave'
 
      if (fullsolution(2,4)>=fullsolution(2,5)) then !Shock
-        write(100,FMT='(8E20.9)') xc+vxc*t,fullsolution(:,4) !EXACT POSITION OF THE SHOCK
+        write(100,FMT='(8E26.16)') xc+vxc*t,fullsolution(:,4) !EXACT POSITION OF THE SHOCK
         do while(x(i)-xc<=VsRv3(3)*t)
-           write(100,FMT='(8E20.9)') x(i),fullsolution(:,4)
+           write(100,FMT='(8E26.16)') x(i),fullsolution(:,4)
            i=i+1
            xp=x(i)
            if (i>nx) return
         end do
-        write(100,FMT='(8E20.9)') xc+VsRv3(3)*t,fullsolution(:,4) !EXACT POSITION OF THE SHOCK
+        write(100,FMT='(8E26.16)') xc+VsRv3(3)*t,fullsolution(:,4) !EXACT POSITION OF THE SHOCK
      else !Rarefaction
         call xi(fullsolution(:,4),'RS',xir)!Computes the value of xi at pb
         do while(x(i)-xc<=xir*t)
-           write(100,FMT='(8E20.9)') x(i),fullsolution(:,4)
+           write(100,FMT='(8E26.16)') x(i),fullsolution(:,4)
            i=i+1
            xp=x(i)
            if (i>nx) then
@@ -1521,7 +1521,7 @@ subroutine output(x1,x2,t,nx,left,right,VsLv3,VsRv3,unk,fullsolution)
            call Rarefaction(normb,xir,fullsolution(:,4),solutionr,'RS')
            !Rarefaction returns always the value of xi at left(2)
            call xi(solutionr,'RS',xir)!Computes the value of xi at pb
-           write(100,FMT='(8E20.9)') xc+xir*t,solutionr
+           write(100,FMT='(8E26.16)') xc+xir*t,solutionr
            xp=xc+xir*t
            normb=normb+h
            if (xp>x2) return
@@ -1538,14 +1538,14 @@ subroutine output(x1,x2,t,nx,left,right,VsLv3,VsRv3,unk,fullsolution)
      !---------------------------------!
 
      print *,'PLOTTING... Right Going Alfven Wave'
-     write(100,FMT='(8E20.9)') xc+VsRv3(3)*t,fullsolution(:,5) !EXACT POSITION OF THE SHOCK
+     write(100,FMT='(8E26.16)') xc+VsRv3(3)*t,fullsolution(:,5) !EXACT POSITION OF THE SHOCK
      do while(x(i)-xc<=VsRv3(2)*t)
-        write(100,FMT='(8E20.9)') x(i),fullsolution(:,5)
+        write(100,FMT='(8E26.16)') x(i),fullsolution(:,5)
         i=i+1
         xp=x(i)
         if (i>nx) return
      end do
-     write(100,FMT='(8E20.9)') xc+VsRv3(2)*t,fullsolution(:,5) !EXACT POSITION OF THE SHOCK
+     write(100,FMT='(8E26.16)') xc+VsRv3(2)*t,fullsolution(:,5) !EXACT POSITION OF THE SHOCK
 
      !---------------------------------!
      !------RIGHT GOING FAST WAVE------!
@@ -1555,21 +1555,21 @@ subroutine output(x1,x2,t,nx,left,right,VsLv3,VsRv3,unk,fullsolution)
 
 
      if (fullsolution(2,5)>=right(2)) then !Shock
-        write(100,FMT='(8E20.9)') xc+VsRv3(2)*t,fullsolution(:,6) !EXACT POSITION OF THE SHOCK
+        write(100,FMT='(8E26.16)') xc+VsRv3(2)*t,fullsolution(:,6) !EXACT POSITION OF THE SHOCK
         do while(x(i)-xc<=VsRv3(1)*t)
-           write(100,FMT='(8E20.9)') x(i),fullsolution(:,6)
+           write(100,FMT='(8E26.16)') x(i),fullsolution(:,6)
            xp=x(i)
            i=i+1
            if (i>nx) then
               return
            end if
         end do
-        write(100,FMT='(8E20.9)') xc+VsRv3(1)*t,fullsolution(:,6) !EXACT POSITION OF THE SHOCK
-        write(100,FMT='(8E20.9)') xc+VsRv3(1)*t,right !EXACT POSITION OF THE SHOCK
+        write(100,FMT='(8E26.16)') xc+VsRv3(1)*t,fullsolution(:,6) !EXACT POSITION OF THE SHOCK
+        write(100,FMT='(8E26.16)') xc+VsRv3(1)*t,right !EXACT POSITION OF THE SHOCK
      else !Rarefaction
         call xi(fullsolution(:,6),'RF',xir)!compute the value of xi at pb
         do while(x(i)<xc+xir*t)
-           write(100,FMT='(8E20.9)') x(i),fullsolution(:,6)
+           write(100,FMT='(8E26.16)') x(i),fullsolution(:,6)
            xp=x(i)
            i=i+1
            if (i>nx) then
@@ -1585,7 +1585,7 @@ subroutine output(x1,x2,t,nx,left,right,VsLv3,VsRv3,unk,fullsolution)
            call Rarefaction_pressure(pb,xir,fullsolution(:,6),solutionr,'RF')
            !Rarefaction returns always the value of xi at right(2)
            call xi(solutionr,'RF',xir)!compute the value of xi at pb
-           write(100,FMT='(8E20.9)') xc+xir*t,solutionr
+           write(100,FMT='(8E26.16)') xc+xir*t,solutionr
            pb=pb+h
            xp=xc+xir*t
            if (xp>x2) return
@@ -1593,7 +1593,7 @@ subroutine output(x1,x2,t,nx,left,right,VsLv3,VsRv3,unk,fullsolution)
      end if
 
      do 
-        if(x(i)>xp) write(100,FMT='(8E20.9)') x(i),right
+        if(x(i)>xp) write(100,FMT='(8E26.16)') x(i),right
         i=i+1
         if (i>nx) return
      end do
