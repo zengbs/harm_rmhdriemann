@@ -1,0 +1,5 @@
+*.o
+*.sol
+riemann_rmhd
+*.mod
+*.dat

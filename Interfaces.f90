@@ -1,11 +1,11 @@
-!$Id: Interfaces.f90,v 1.12 2005/08/16 10:36:49 bgiacoma Exp $
+!$Id: Interfaces.f90,v 1.13 2006/03/13 16:54:27 bgiacoma Exp bgiacoma $
 
 !!$ Copyright (C) 2005  B. Giacomazzo, L. Rezzolla
 
 MODULE type
   INTEGER, PARAMETER :: I4B = SELECTED_INT_KIND(9)
   INTEGER, PARAMETER :: DP = KIND(1.0D0)
-  INTEGER, PARAMETER :: DPC = KIND(1.0D0,1.0D0)
+  INTEGER, PARAMETER :: DPC = KIND(1.0D0)
   INTEGER, PARAMETER :: LGT = KIND(.true.)
 END MODULE type
 
@@ -148,7 +148,7 @@ module interfaces
        REAL(DP),INTENT(OUT) :: f 
        REAL(DP),INTENT(OUT) :: df 
        character(len=2),intent(IN)::switchLR
-       character(len=2),intent(IN)::switchPB
+       character(len=1),intent(IN)::switchPB
        logical,intent(OUT)::errcheck
      end SUBROUTINE zeroeqn
   end interface
